@@ -1,0 +1,111 @@
+<!-- 네비게이션 바 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-black py-3 shadow-lg">
+  <div class="container">
+    <!-- 로고 / 홈 -->
+    <a class="navbar-brand fw-bold fs-3 text-danger" href="{% url 'mypage:index' %}">
+      🎬 Watcha
+    </a>
+
+    <!-- 모바일 메뉴 토글 -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- 메뉴 목록 -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center gap-3">
+        {% if user.is_authenticated %}
+        <!-- 로그인 상태 -->
+        <li class="nav-item">
+          <a class="nav-link text-white fw-semibold" href="{% url 'mypage:mypage' user.username %}">
+            마이페이지
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-danger fw-semibold" href="{% url 'common:logout' %}">
+            {{ user.username }} (로그아웃)
+          </a>
+        </li>
+        {% else %}
+        <!-- 로그아웃 상태 -->
+        <li class="nav-item">
+          <a class="nav-link text-white fw-semibold" href="{% url 'common:login' %}">로그인</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white fw-semibold" href="{% url 'common:signup' %}">회원가입</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+
+  <!-- Watcha 스타일 네비게이션 전용 CSS -->
+  <style>
+    .navbar {
+      background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      border-bottom: 1px solid #ff2f6e55;
+    }
+
+    .navbar-brand {
+      color: #ff2f6e !important;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      letter-spacing: -0.5px;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .navbar-brand:hover {
+      color: #fff !important;
+      text-shadow: 0 0 5px #ff2f6e88;
+      transform: scale(1.05);
+    }
+
+    .navbar-nav .nav-link {
+      font-size: 1rem;
+      font-weight: 500;
+      transition: color 0.2s, transform 0.2s;
+      padding: 0.4rem 0.7rem;
+      border-radius: 6px;
+    }
+
+    .navbar-nav .nav-link.text-white:hover {
+      color: #ff2f6e !important;
+      transform: scale(1.05);
+    }
+
+    .navbar-nav .nav-link.text-danger {
+      color: #ff2f6e !important;
+    }
+
+    .navbar-nav .nav-link.text-danger:hover {
+      color: #fff !important;
+      background-color: #ff2f6e;
+    }
+
+    .navbar-toggler {
+      border-color: #ff2f6e;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+
+    @media (max-width: 992px) {
+      .navbar-nav .nav-item {
+        text-align: center;
+      }
+
+      .navbar-nav .nav-link {
+        padding: 0.75rem;
+      }
+    }
+  </style>
+</nav>
